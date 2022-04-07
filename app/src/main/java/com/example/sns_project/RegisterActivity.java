@@ -71,9 +71,10 @@ public class RegisterActivity extends AppCompatActivity {
                         }else{
                             Log.w(TAG, "failure", task.getException());
                             Toast.makeText(getApplicationContext(),"회원가입에 실패하였습니다. 이메일 형식과 비밀번호 6자리 이상인지 확인해주세요",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"이메일 형식과 비밀번호 6자리 이상인지 확인해주세요",Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
     }
-
 }
