@@ -30,6 +30,14 @@
             android:name=".RegisterActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".PasswordResetActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".MemberInitActivity"
+            android:exported="true">
+        </activity>
 
     </application>
 </manifest>

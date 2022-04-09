@@ -28,8 +28,9 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        findViewById(R.id.btn_login).setOnClickListener(onClickListener);
+        findViewById(R.id.btn_check).setOnClickListener(onClickListener);
         findViewById(R.id.btn_register).setOnClickListener(onClickListener);
+        findViewById(R.id.btn_passwordreset).setOnClickListener(onClickListener);
     }
 
     @Override
@@ -40,18 +41,17 @@ public class LoginActivity extends AppCompatActivity {
         System.exit(1);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-    }
+
 
     View.OnClickListener onClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {   // 각 버튼 클릭 시 이벤트 발생
             switch (v.getId()) {
-                case R.id.btn_login:    // 로그인 버튼을 클릭했을 때 데이터베이스의 내용과 일치하면 메인으로 이동 메서드 실행
-                    signUp();
+                case R.id.btn_check:    // 로그인 버튼을 클릭했을 때 데이터베이스의 내용과 일치하면 메인으로 이동 메서드 실행
+                    login();
+                    break;
+                case R.id.btn_passwordreset:    // 비밀번호 찾기 버튼을 클릭했을 때 데이터베이스의 내용과 일치하면 메인으로 이동 메서드 실행
+                    MystartActivity(PasswordResetActivity.class);
                     break;
                 case R.id.btn_register:  // 회원가입 액티비티로 이동
                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     };
 
 
-    private void signUp() {   // 로그인 메서드
+    private void login() {   // 로그인 메서드
         String userEmail = ((EditText)findViewById(R.id.et_email)).getText().toString();   // 텍스트에 적은 이메일, 비밀번호를 string으로 가져온다.
         String userPass = ((EditText)findViewById(R.id.et_pass)).getText().toString();
 
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);           // 다른 식으로 뒤로가지지 않기 위해 초기화해준다.
-                                startActivity(intent);
+                                MystartActivity(MainActivity.class);
                             } else {
                                 Log.w(TAG, "falilure", task.getException());
                                 Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -91,8 +91,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void startLoginActivity(){
-        Intent intent = new Intent(this, LoginActivity.class);
+    private void MystartActivity(Class c){
+        Intent intent = new Intent(this, c);
+        intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

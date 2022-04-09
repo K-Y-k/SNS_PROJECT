@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.btn_register).setOnClickListener(onClickListener);
-        findViewById(R.id.btn_login).setOnClickListener(onClickListener);
+        findViewById(R.id.btn_check).setOnClickListener(onClickListener);
     }
 
     @Override
@@ -45,9 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
                 case R.id.btn_register:
                     signUp();
                     break;
-                case R.id.btn_login:
-                    Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent1);
+                case R.id.btn_check:
+                    MystartActivity(LoginActivity.class);
                     break;
             }
         }
@@ -65,9 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Log.d(TAG, "success");
                             Toast.makeText(getApplicationContext(),"회원가입 되었습니다.",Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent2 = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent2);
+                            finish();
                         }else{
                             Log.w(TAG, "failure", task.getException());
                             Toast.makeText(getApplicationContext(),"회원가입에 실패하였습니다. 이메일 형식과 비밀번호 6자리 이상인지 확인해주세요",Toast.LENGTH_SHORT).show();
@@ -76,5 +73,11 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void MystartActivity(Class c){
+        Intent intent = new Intent(this, c);
+        intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
