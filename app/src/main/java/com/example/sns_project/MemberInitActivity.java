@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-//최병욱
+//최병욱1234
 public class MemberInitActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
